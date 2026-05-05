@@ -1,0 +1,221 @@
+:root {
+    /* 🎨 Theme Colors - Light */
+    --bg-main: rgba(205, 205, 205, 0.9);
+    --bg-chat: rgba(255, 255, 255, 0.8);
+    --bg-glass: rgba(255, 255, 255, 0.4);
+    --border-color: rgba(150, 150, 150, 0.725);
+
+    --text-primary: #1f2937;
+    --text-muted: #6b7280;
+
+    --user-bubble: #2563eb;
+    --user-text: #ffffff;
+
+    --bot-bubble: #ffffff;
+    --bot-text: #111827;
+
+    --scrollbar: rgba(0, 0, 0, 0.1);
+    --chat-font-size: 14px;
+    --transition-speed: 0.3s;
+}
+
+/* 🌙 Dark Mode Overrides */
+[data-theme="dark"] {
+    --bg-main: black;
+    --bg-chat: rgba(15, 23, 42, 0.7);
+    --bg-glass: rgba(30, 41, 59, 0.5);
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    --text-primary: #f3f4f6;
+    --text-muted: #9ca3af;
+
+    --user-bubble: #3b82f6;
+    --user-text: #ffffff;
+
+    --bot-bubble: #1e293b;
+    --bot-text: #e5e7eb;
+
+    --scrollbar: rgba(255, 255, 255, 0.1);
+}
+
+/* 🌐 Global Resets & Base */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background var(--transition-speed) ease;
+}
+.container {
+    height: 100%;
+}
+
+/* 💬 Chat Window Container */
+#chat-window {
+    display: flex;
+    flex-direction: column;
+
+    /* margin-top: auto; */
+    /* 🔥 pushes it to bottom */
+
+    height:100vh;
+    min-height: 0;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    background: var(--bg-chat);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    /* justify-content: flex-end; */
+    /* messages stick to bottom */
+}
+
+
+
+/* 💭 Message Alignment Wrapper */
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.message-wrapper.user {
+    align-items: flex-end;
+}
+
+.message-wrapper.bot {
+    align-items: flex-start;
+}
+
+/* 🫧 Chat Bubbles */
+.chat-bubble {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: var(--chat-font-size);
+    line-height: 1.5;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.chat-bubble:hover {
+    transform: translateY(-1px);
+}
+
+.user-bubble {
+    background: var(--user-bubble);
+    color: var(--user-text);
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.bot-bubble {
+    background: var(--bot-bubble);
+    color: var(--bot-text);
+    border-bottom-left-radius: 4px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 🏷 Labels */
+.chat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    padding: 0 8px;
+}
+
+/* 🧼 Refined Scrollbar */
+#chat-window::-webkit-scrollbar {
+    width: 5px;
+}
+
+#chat-window::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#chat-window::-webkit-scrollbar-thumb {
+    background: var(--scrollbar);
+    border-radius: 5px;
+}
+
+#chat-window::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.section {
+    margin-bottom: 20px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+}
+
+input[type="text"].form-control {
+    font-size: 14px;
+}
+
+input[type="text"].form-control::placeholder {
+    font-size: 14px;
+}
+
+#send-btn {
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+.dataset-card .card-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.dataset-card .card-body {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.label-preview {
+    color: var(--text-primary);
+}
+
+#clear-history {
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+#data-preview {
+    font-size: 12px;
+    height: 50vh;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    background: var(--bg-glass);
+    /* Smooth Glass Effect */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    scroll-behavior: smooth;
+}
+
+.info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    overflow-y: auto;
+}

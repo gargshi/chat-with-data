@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" id="theme-root" class="dark">
+
+<head>
+	<title>Chat with Data</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Modern Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/index.css">
+
+	<style>
+		/* Small inline fix to hide the ugly default file input */
+		#csv-file-input {
+			display: none;
+		}
+
+		.subtitle {
+			color: var(--text-muted);
+			font-size: 0.9rem;
+			margin-top: -10px;
+		}
+
+		.preview-section {
+			margin-bottom: 1.5rem;
+		}
+
+		#data-preview {
+			max-height: 200px;
+			overflow: auto;
+			background: rgba(0, 0, 0, 0.05);
+			border-radius: 8px;
+		}
+	</style>
+</head>
+
+<body class="body">
+	<div class="container-fluid py-4 h-100">
+		<div class="row h-100">
+			<!-- Sidebar -->
+			<div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+				<aside class="d-flex flex-column glass-panel h-100 p-4 section">
+					<h2 class="h4 mb-4 text-uppercase fw-bold">History</h2>
+					<div id="history-list" class="flex-grow-1 overflow-auto mb-3">
+						<!-- History items will be injected here -->
+					</div>
+					<button id="clear-history" class="btn btn-outline-danger w-100 text-uppercase">
+						Clear History
+					</button>
+				</aside>
+			</div>
+
+			<!-- Main Area -->
+			<div class="col-lg-9 col-md-8">
+				<div class="glass-panel h-100 p-4 d-flex flex-column section">
+					<header class="mb-4">
+						<div class="d-flex align-items-center justify-content-between">
+							<div>
+								<h1 class="h3 mb-1">Chat with Your Data</h1>
+								<p class="subtitle">Analyze your CSV instantly</p>
+							</div>
+
+							<div class="d-flex align-items-center gap-2">
+								<!-- Theme Toggle -->
+								<button id="theme-toggle" class="btn btn-light shadow-sm p-2" title="Toggle Theme">
+									<svg id="theme-toggle-dark-icon" class="hidden" width="20" height="20"
+										fill="currentColor" viewBox="0 0 20 20">
+										<path
+											d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z">
+										</path>
+									</svg>
+									<svg id="theme-toggle-light-icon" class="hidden" width="20" height="20"
+										fill="currentColor" viewBox="0 0 20 20">
+										<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+										</path>
+									</svg>
+								</button>
+
+								<!-- File Upload -->
+								<label for="csv-file-input" class="btn btn-primary shadow-sm px-4">Upload CSV</label>
+								<input type="file" id="csv-file-input" accept=".csv" />
+							</div>
+						</div>
+					</header>
+
+					<div class="row h-100">
+						<div class="col-md-6 d-flex flex-column justify-content-end">
+							<!-- Main Chat Window -->
+							<div id="chat-window">
+								<!-- Messages will be injected here -->
+							</div>
+						</div>
+						<div class="col-md-6 overflow-hidden">
+							<div class="info-panel">
+								<!-- Preview Area -->
+								<div class="preview-section card bg-transparent border-0">
+									<!-- <h6 class="text-uppercase fw-bold small label-preview">Live Preview</h6> -->
+									<div id="data-preview" class="border"></div>
+								</div>
+								<div id="dataset-info" class="mt-2"></div>
+							</div>
+						</div>
+
+					</div>
+
+					
+
+					
+
+
+
+					<!-- Input Controls -->
+					<div class="d-flex align-items-center gap-2 pt-3">
+						<input class="form-control form-control-lg border-0 shadow-sm" type="text" id="user-input"
+							placeholder="Ask your data anything...">
+						<button type="button" id="send-btn" class="btn btn-primary btn-lg px-4 shadow">Send</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script id="fix-theme-js">
+		const themeToggleBtn = document.getElementById('theme-toggle');
+		const darkIcon = document.getElementById('theme-toggle-dark-icon');
+		const lightIcon = document.getElementById('theme-toggle-light-icon');
+		const html = document.documentElement;
+
+		// Initial load
+		const savedTheme = localStorage.getItem('color-theme');
+
+		if (savedTheme === 'light' || (!savedTheme && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			html.setAttribute('data-theme', 'light');
+			lightIcon.classList.remove('hidden');
+		} else {
+			html.setAttribute('data-theme', 'dark');
+			darkIcon.classList.remove('hidden');
+		}
+
+		// Toggle
+		themeToggleBtn.addEventListener('click', function () {
+			darkIcon.classList.toggle('hidden');
+			lightIcon.classList.toggle('hidden');
+
+			const currentTheme = html.getAttribute('data-theme');
+
+			if (currentTheme === 'dark') {
+				html.setAttribute('data-theme', 'light');
+				localStorage.setItem('color-theme', 'light');
+			} else {
+				html.setAttribute('data-theme', 'dark');
+				localStorage.setItem('color-theme', 'dark');
+			}
+		});
+	</script>
+	<script src="/static/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

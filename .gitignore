@@ -1,0 +1,75 @@
+# Ignore node_modules
+/node_modules
+
+# Ignore vscode settings
+/.vscode
+.hintrc
+
+# Ignore dotenv
+.env
+
+# Ignore flask session
+/flask_session
+
+# Ignore static files
+/static/*
+
+# Unignore required folders
+!static/css/
+!static/js/
+
+# Ignore everything inside them again
+static/css/*
+static/js/*
+
+# Allow only css/js files
+!static/css/*.css
+!static/js/*.js
+
+# Ignore build files
+/build/**/*
+
+# Ignore python cache
+/__pycache__/
+
+# Ignore jupyter notebooks
+*.ipynb_checkpoints
+*.ipynb
+*.nbconvert
+.ipynb_checkpoints
+.ipynb
+
+# Virtual env
+.venv
+
+# Other
+drafts/
+app-orig.py
+git-commands.bat
+TODO.md
+
+# Blackbox AI
+TODO*.md
+.blackbox/
+blackbox/
+.blackboxai/
+blackboxai/
+
+# Logs & temp
+blackbox.log
+*.blackbox.log
+
+# Cache / model artifacts (if any)
+blackbox_cache/
+.bb_cache/
+
+# Env / secrets (VERY important)
+.blackbox.env
+blackbox.env
+
+/uploads
+*/__pycache__/
+
+*.log
+
+/backend/dataset_info.json
